@@ -6,15 +6,17 @@ A simple express.js proxy api for Checkbook NYC data.
 
 The New York City Comptroller's Office has put together a financial transparency site at [Checkbooknyc.com](http://www.checkbooknyc.com) where you can search for individual transactions, vendors, etc.  
 
-It also has an API, but it's not very user-friendly and requires POSTing massive XML payloads and getting equally massive XML responses.  I wanted to write a simple proxy API endpoint that would abstract away all the XML.
+It also has an API, but it's not very user-friendly and requires POSTing massive XML payloads and getting equally massive XML responses.  I wanted to write a simple proxy API endpoint that would abstract away all the XML and have a simpler URL structure.
 
 ##My Lonely JSON Endpoint
 
-I am interested in getting all transactions for a single capital project, so the two search criteria I am passing in are `spending_category`:`cc` and `capital_project_code`:`{myprojectid}`.  
+I am interested in getting all transactions for a single capital project, so the two search criteria I am including in my POST to checkbooknyc's XML API are `spending_category`:`cc` and `capital_project_code`:`{myprojectid}`.  
 
-`/api/capitalprojects/:projectid`, where `projectid` is the managing agency code + the FMS project id. Read below for where to find one.
+This is abstracted away behind a beautiful proxy URL:
 
-Capital Project IDs, aka FMS IDs are the project identifier which can be found in the [Capital Commitment Plans](http://www1.nyc.gov/site/omb/publications/finplan04-16.page) published by OMB. 
+`/api/capitalprojects/:projectid`, where `projectid` is the managing agency code + the FMS project id. Read below for more about project ids.
+
+Capital Project IDs, aka FMS IDs can be found in the [Capital Commitment Plans](http://www1.nyc.gov/site/omb/publications/finplan04-16.page) published by OMB.   
 
 In the capital commitment plan, a project ID is unique to its managing agency, which is expressed as a 3-digit code.  
 
@@ -24,7 +26,7 @@ In the above snippet from a capital commitment plan document, the Juniper Bocce 
 
 *In Checkbook NYC, `capital_project_code` is a concatenation of the managing agency code + projectid + cost code*, so we should be able to find a match by searching for `846P-405JVBC305`.  As of 8/25/16 this combination does not yield any results in checkbook NYC, but I learned from trial and error that it is doing a 'startswith' search, and you can pass in just the managing agency code + projectid and get all partial matches.
 
-For the juniper bocce court example, the JSON response looks like this:
+This proxy API converts the XML response into a nice JSON array, and gives you back a status and message for good measure.  For the juniper bocce court example, the JSON response looks like this:
 
 ```
 {
