@@ -6,7 +6,7 @@ A simple express.js proxy api for Checkbook NYC data.
 
 The New York City Comptroller's Office has put together a financial transparency site at [Checkbooknyc.com](http://www.checkbooknyc.com) where you can search for individual transactions, vendors, etc.  
 
-It also has an API, but it's not very user-friendly and requires POSTing massive XML payloads and getting equally massive XML responses.  I wanted to write a simple proxy API endpoint that would abstract away all the XML and have a simpler URL structure.
+[It also has an API](http://www.checkbooknyc.com/spending-api#sample-request-spending), but it's not very user-friendly and requires POSTing massive XML payloads and getting equally massive XML responses.  I wanted to write a simple proxy API endpoint that would abstract away all the XML and have a simpler URL structure.
 
 ##My Lonely JSON Endpoint
 
