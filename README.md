@@ -26,7 +26,7 @@ In the above snippet from a capital commitment plan document, the Juniper Bocce 
 
 *In Checkbook NYC, `capital_project_code` is a concatenation of the managing agency code + projectid + cost code*, so we should be able to find a match by searching for `846P-405JVBC305`.  As of 8/25/16 this combination does not yield any results in checkbook NYC, but I learned from trial and error that it is doing a 'startswith' search, and you can pass in just the managing agency code + projectid and get all partial matches.
 
-This proxy API converts the XML response into a nice JSON array, and gives you back a status and message for good measure.  For the juniper bocce court example, the JSON response looks like this:
+This proxy API converts the XML response into a nice JSON array, and gives you back a status and message for good measure.  For the juniper bocce court example, the request would be `http://localhost:3000/api/spending/capitalprojects/846P-405JVBC` and the JSON response looks like:
 
 ```
 {
